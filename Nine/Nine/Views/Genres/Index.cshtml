@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Nine.Models.Genre>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-primary" style=" text-align: center; margin:35px">Genres</h1>
+
+
+<table class="table" style="text-align:center">
+    <thead>
+        <tr>
+            <th>
+                <h4>GenreName</h4>
+            </th>
+            <th>
+                <h4>GenreStatus</h4>
+            </th>
+            <th>
+                <h4><a asp-action="Create" style="Text-decoration: none;" class="btn btn-outline-success"><i class="fa-solid fa-ghost fa-xl" style="margin-right: 2px"></i> Add</a></h4>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <h5>@Html.DisplayFor(modelItem => item.GenreName)</h5>
+                </td>
+                <td>
+                    @if (item.GenreStatus == "accepted")
+                    {
+                        <h5>@Html.DisplayFor(modelItem => item.GenreStatus)</h5>
+
+                    }
+                    else
+                    {
+                        <h5> Need Accecpt</h5>
+                    }
+                </td>
+                <td>
+                    @if (item.GenreStatus == "accepted")
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-info"><i class="fa-solid fa-gamepad fa-beat fa-sm" style="margin-top: 10px"></i></a> <i>|</i>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-info" onclick="return confirm ('Are you sure?')"><i class="fa-solid fa-bomb fa-shake fa-sm"></i></a>
+                    }
+
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

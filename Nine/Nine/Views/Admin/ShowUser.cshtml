@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ApplicationUser>
+
+
+@{
+
+}
+
+
+
+
+
+<h1 class="text-primary" style="text-align:center; font-size:30px; margin:35px">User</h1>
+<table class="table" style="text-align:center; font-size:20px">
+	<thead>
+		<tr>
+			<th>
+				ID
+			</th>
+			<th>
+				FullName
+			</th>
+			<th>
+				Email
+			</th>
+			<th>
+				Address
+			</th>
+
+
+
+			<th>
+
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var user in Model)
+		{
+			<tr>
+				<td>@user.Id</td>
+				<td>@user.FullName</td>
+				<td>@user.Email</td>
+				<td>@user.Address</td>
+
+
+
+				<td>
+					<a class="btn btn-outline-info mdi mdi-pencil" asp-controller="Admin" asp-action="ChangeUser" asp-route-id="@user.Id"><i class="fa-solid fa-bolt fa-xl"></i></a>
+					<a class="btn btn-outline-danger mdi mdi-pencil" asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@user.Id"><i class="fa-solid fa-trash fa-xl"></i></a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

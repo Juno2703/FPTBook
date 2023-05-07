@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Nine.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Delete";
+}
+
+<h1 class="text-primary" style="text-align:center; margin: 40px;"> Order Manage</h1>
+
+<table class="table" style="text-align:center; font-size: 20px">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderStatus)
+            </th>
+            <th>
+                Delete Order
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderStatus.StatusName)
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
+                </td>
+                <td>
+                    @if (item.OrderStatusId == 1)
+                    {
+                        <a asp-action="ShipOrder" asp-route-id="@item.Id" class="btn btn-outline-info">Ship</a>
+                    }
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Nine.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+    string HasImage(Book book)
+    {
+        if (book.ImageUrl != "")
+        {
+            return "fa-solid fa-check";
+        }
+        else
+        {
+            return "fa-solid fa-x";
+        }
+    }
+}
+
+<h1 style="text-align:center; margin:35px" class="text-primary">Books</h1>
+
+<table class="table" style="text-align:center; font-size:17px">
+    <thead>
+        <tr style="font-size:20px">
+            <th>
+                @Html.DisplayNameFor(model => model.BookName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th>
+                Has Image
+            </th>
+            <th>
+                <a asp-action="Create" style="Text-decoration: none;" class="btn btn-outline-success"><i class="fa-solid fa-ghost fa-xl" style="margin-right: 2px"></i> Add</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre.GenreName)
+                </td>
+                <td>
+                    <i class="@HasImage(item)"></i>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-info"><i class="fa-solid fa-gamepad fa-beat fa-sm" style="margin-top: 10px"></i></a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info"><i class="fa-solid fa-house-medical fa-bounce fa-sm"></i></a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-info" onclick="return confirm ('Are you sure?')"><i class="fa-solid fa-bomb fa-shake fa-sm"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

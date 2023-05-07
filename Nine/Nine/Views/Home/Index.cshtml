@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Nine.Models.Book>
+
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<h1 class="my-4	text text-primary" style="text-align:center">Store</h1>
+
+<div class="my-2">
+	<form asp-action="Index" class="row row-cols-lg-auto g-3 align-items-center">
+		<div class="col-12">
+			<label class="visually-hidden" for="sterm">Search by title</label>
+			<div class="input-group">
+				<div class="input-group-text"></div>
+				<input type="text" class="form-control" value="" id="search" name="search" placeholder="Sarch by title">
+			</div>
+		</div>
+
+		<div class="col-12">
+			<button type="submit" class="btn btn-outline-info">Search</button>
+			<a asp-action="Index" class="btn btn-outline-dark">Reset</a>
+		</div>
+
+	</form>
+</div>
+
+<div class="row">
+	@foreach (var book in Model)
+	{
+		<div class="col-3" style="margin-bottom: 50px; text-align:center">
+			<div class="card my-2">
+				<a asp-controller="Home" asp-action="Details" asp-route-id="@book.Id" style="text-decoration:none;">
+					<img src="/images/@book.ImageUrl" class="card-img-top card-image-custom">
+					<div class="card-body" style="height : 4em;">
+						<h5 class="mb-3">@book.BookName</h5>
+					</div>
+				</a>
+				<div class="card-body">
+					<span class="card-text" style="margin-right:20px; font-size:20px">@book.Price.ToString("c")</span>
+					<button type="button" onclick="add(@book.Id)" class="btn btn-outline-info">Add to cart</button>
+				</div>
+
+			</div>
+		</div>
+	}
+</div>
+
+@section Scripts{
+	<script>
+		 function add(bookId) {
+			var usernameEl = document.getElementById("username");
+			if (usernameEl == null) {
+				window.location.href = "/Identity/Account/Login";
+			}
+			var response = fetch(`/Cart/AddItem?bookId=${bookId}`);
+		}
+	</script>
+
+
+}
+

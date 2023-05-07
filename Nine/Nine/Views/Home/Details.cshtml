@@ -1,0 +1,70 @@
+﻿@model Nine.Models.Book
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 style="text-align:center; margin:30px"><a asp-action="Index"><i class="fa-solid fa-backward fa-beat fa-sm"></i></a> Details Products</h1>
+
+<div class="row">
+    <div class="col-5">
+        <div>
+
+            <dl class="row" style="margin-top: 30px; font-size:20px">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.BookName)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.BookName)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Author)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Author)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.ISBN)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.ISBN)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.DatePulished)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.DatePulished)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Price)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Price)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <button type="button" onclick="add(@Model.Id)" class="btn btn-outline-info">Add to cart</button>
+        </div>
+
+    </div>
+    <div class="col-4">
+        <img src="/images/@Model.ImageUrl" class="w-100" />
+    </div>
+</div>
+
+<script>
+    async function add(bookId) {
+        var usernameEl = document.getElementById("username");
+        if (usernameEl == null) {
+            window.location.href = "/Identity/Account/Login";
+        }
+        var response = await fetch(`/Cart/AddItem?bookId=${bookId}`);
+    }
+</script>

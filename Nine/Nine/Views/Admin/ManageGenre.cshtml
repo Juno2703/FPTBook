@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Genre>
+
+@{
+}
+
+
+        <h1 style="text-align:center; margin:35px" class="text-primary">Manage Genre</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <h4 style="margin-bottom:30px">Category Name</h4>
+                    </th>
+
+
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <h4>@item.GenreName</h4>
+                        </td>
+
+                        <td>
+                            @if (item.GenreStatus == null)
+                            {
+                                <a class="btn btn-outline-light" asp-controller="Admin" asp-action="Accept" asp-route-id="@item.Id">Accept </a>
+
+                            }
+                            else{
+                                <span class="btn btn-outline-info"> Accepted  </span>
+                            } |
+                            <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm ('Are you sure?')"> Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ApplicationUser>
+
+
+@{
+
+}
+
+
+
+<h1 class="text-primary" style="text-align:center; font-size:30px; margin:35px">Owner</h1>
+
+<table class="table" style="text-align:center; font-size:20px">
+	<thead>
+		<tr>
+			<th>
+				ID
+			</th>
+			<th>
+				User Name
+			</th>
+			<th>
+				Email
+			</th>
+
+			<th>
+				<h4><a asp-action="RegisterOwner" style="Text-decoration: none;" class="btn btn-outline-success"><i class="fa-solid fa-ghost fa-xl" style="margin-right: 2px"></i> Add</a></h4>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var user in Model)
+		{
+			<tr>
+				<td>@user.Id</td>
+				<td>@user.UserName</td>
+				<td>@user.Email</td>
+
+
+
+				<td>
+					<a class="btn btn-outline-info mdi mdi-pencil" asp-controller="Admin" asp-action="ChangeOwner" asp-route-id="@user.Id"><i class="fa-solid fa-bolt fa-xl"></i></a>
+					<a class="btn btn-outline-danger mdi mdi-pencil" asp-controller="Admin" asp-action="DeleteOwner" asp-route-id="@user.Id"><i class="fa-solid fa-trash fa-xl"></i></a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
