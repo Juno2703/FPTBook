@@ -26,6 +26,7 @@ namespace Nine.Models
 
         [Required]
         public string Author { get; set; }
+        public virtual ApplicationUser? OwnerAdd { get; set; }
 
         [Display(Name = "Image URL")]
         public string ImageUrl { get; set; }

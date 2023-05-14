@@ -266,12 +266,17 @@ namespace Nine.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OwnerAddId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GenreId");
+
+                    b.HasIndex("OwnerAddId");
 
                     b.ToTable("Books");
                 });
@@ -507,7 +512,13 @@ namespace Nine.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Nine.Models.ApplicationUser", "OwnerAdd")
+                        .WithMany()
+                        .HasForeignKey("OwnerAddId");
+
                     b.Navigation("Genre");
+
+                    b.Navigation("OwnerAdd");
                 });
 
             modelBuilder.Entity("Nine.Models.CartDetail", b =>

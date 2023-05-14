@@ -10,7 +10,7 @@
 <div class="col-md-8 grid-margin stretch-card" style="margin-left:230px">
     <div class="card">
         <div class="card-body">
-            <h3 class="card-title" style="text-align:center">Create Owner</h3>
+            <h1 class="card-title text text-primary" style="text-align:center">Create Owner</h1>
             <form asp-controller="Admin" asp-action="RegisterOwner" method="post" enctype="multipart/form-data">
 
                 <div class="form-group">
@@ -35,7 +35,7 @@
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
 
-                <input type="submit" value="Register" class="btn btn-primary" />
+                <input type="submit" value="Register" class="btn btn-outline-info" style="margin-top : 30px" />
             </form>
         </div>
     </div>

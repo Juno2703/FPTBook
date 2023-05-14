@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookShoppingCartMvcUI.Constants;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,14 +16,15 @@ namespace Nine.Controllers
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public BooksController(ApplicationDbContext context)
+        public BooksController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-//=====================================================================================================//
-
+        // GET: Books
         [Authorize(Roles = "Owner")]
         public async Task<IActionResult> Index()
         {
@@ -29,9 +32,7 @@ namespace Nine.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-//=====================================================================================================//
-
-        [Authorize(Roles = "Owner")]
+        // GET: Books/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Books == null)
@@ -50,8 +51,7 @@ namespace Nine.Controllers
             return View(book);
         }
 
-//=====================================================================================================//
-
+        // GET: Books/Create
         [Authorize(Roles = "Owner")]
         public IActionResult Create()
         {
@@ -59,10 +59,15 @@ namespace Nine.Controllers
             return View();
         }
 
+        // POST: Books/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,BookName,Description,ISBN,DatePulished,Price,Author,ImageUrl,GenreId")] Book book)
         {
+            ApplicationUser OwnerAdd = await _userManager.GetUserAsync(HttpContext.User);
+            book.OwnerAdd = OwnerAdd;
             if (ModelState.IsValid)
             {
                 _context.Add(book);
@@ -73,9 +78,7 @@ namespace Nine.Controllers
             return View(book);
         }
 
-//=====================================================================================================//
-
-        [Authorize(Roles = "Owner")]
+        // GET: Books/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Books == null)
@@ -89,13 +92,14 @@ namespace Nine.Controllers
                 return NotFound();
             }
             ViewData["GenreId"] = new SelectList(_context.Genres.Where(c => c.GenreStatus == "accepted").ToList(), "Id", "GenreName");
-            
             return View(book);
         }
 
+        // POST: Books/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Owner")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,BookName,Description,ISBN,DatePulished,Price,Author,ImageUrl,GenreId")] Book book)
         {
             if (id != book.Id)
@@ -123,14 +127,11 @@ namespace Nine.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GenreId"] = new SelectList(_context.Genres.Where(c => c.GenreStatus == "processed").ToList(), "Id", "GenreName");
+            ViewData["GenreId"] = new SelectList(_context.Genres.Where(c => c.GenreStatus == "accepted").ToList(), "Id", "GenreName");
             return View(book);
         }
 
-//=====================================================================================================//
-
         // GET: Books/Delete/5
-        [Authorize(Roles = "Owner")]
         public async Task<ActionResult> Delete(int id)
         {
             Book book = _context.Books.Find(id);

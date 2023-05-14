@@ -11060,11 +11060,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Go Home\\Nine\\Nine\\Nine.csproj",
+      "projectUniqueName": "D:\\Go Home\\Learn Unity\\Nine\\Nine\\Nine.csproj",
       "projectName": "Nine",
-      "projectPath": "D:\\Go Home\\Nine\\Nine\\Nine.csproj",
+      "projectPath": "D:\\Go Home\\Learn Unity\\Nine\\Nine\\Nine.csproj",
       "packagesPath": "C:\\Users\\myfri\\.nuget\\packages\\",
-      "outputPath": "D:\\Go Home\\Nine\\Nine\\obj\\",
+      "outputPath": "D:\\Go Home\\Learn Unity\\Nine\\Nine\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\myfri\\AppData\\Roaming\\NuGet\\NuGet.Config",

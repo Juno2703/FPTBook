@@ -102,7 +102,7 @@ namespace Nine.Controllers
             Genre genre = _context.Genres.Find(id);
             if (genre == null)
             {
-                return RedirectToAction("RequestCategory");
+                return RedirectToAction("ManageGenre");
             }
             else
             {
